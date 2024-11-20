@@ -9,8 +9,8 @@ from flask import Flask, request, redirect
 app = Flask(__name__)
 
 resumes = {
-    "Jack": {"score": 1, "resume": "Very smart"},
-    "Jill": {"score": 1, "resume": "You should hire me"},
+    "Jack": {"score": "F", "resume": "Very smart"},
+    "Jill": {"score": "F", "resume": "You should hire me"},
 }
 
 
@@ -58,7 +58,7 @@ def resume_post():
     start = time.perf_counter()
     score = lm.do(
         f"""
-Respond with a letter grade for the following CV for a cybersecurity candidate.
+Respond with only a single letter grade for the following CV for a cybersecurity candidate.
 
 A means excellent fit with many certifications and graduate educational experiences
 B means potential fit where candidate has a college degree and some experience
@@ -77,7 +77,7 @@ An excellent CV should have:
 Here's the CV:
 
 {resume}""".strip(),
-        choices=[f"The rating for this CV is {i}." for i in "ABCDF"],
+        choices=[f"{i}" for i in "ABCDF"],
     )
 
     resumes[name] = {
@@ -91,7 +91,7 @@ Here's the CV:
 
 @app.route("/applicants")
 def applicants():
-    applicants = sorted(resumes.items(), key=lambda x: x[1]["score"], reverse=True)
+    applicants = sorted(resumes.items(), key=lambda x: x[1]["score"])
 
     rows = [
         f"<tr><td><details><summary>{n}</summary>{v['resume']}</details></td><td>{v['score']}</td></tr>"
