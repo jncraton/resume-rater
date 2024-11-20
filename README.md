@@ -5,7 +5,7 @@ An example LLM application vulnerable to prompt injection
 Running
 -------
 
-This app expects a local VLLM server to use for inference. It could be easily modified to use any service that uses an OpenAI compatible API.
+This app expects a local [VLLM](https://github.com/vllm-project/vllm) server to use for inference. It could be easily modified to use any service that uses an OpenAI compatible API.
 
 The app can be run as:
 
