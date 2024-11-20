@@ -49,10 +49,13 @@ def root():
 def resume_get():
     return f"""
     <html>
+    <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    </head>
     <body>
     <main>
+    <h1>Apply</h1>
     <p>Thank you for your interest in our open cybersecurity position. Please complete the form below to apply for a position.</p>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
     <form method=post enctype=multipart/form-data>
       <label>Your Name<input name=name autocomplete=name /></label>
       <label>Resume<input type=file name=resume></input></label>
@@ -132,12 +135,15 @@ def applicants():
 
     return f"""
     <html>
+    <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    </head>
     <body>
     <main>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <h1>Applicants</h1>
     <table>
     <thead>
-    <tr><td>Name</td><td>Score</td></tr>
+    <tr><td>Name</td><td>AI ResumeRating™</td></tr>
     </thead>
     <tbody>{tbody}</tbody>
     </table>
