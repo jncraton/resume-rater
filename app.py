@@ -1,6 +1,7 @@
 import time
 import re
 
+import zipfile
 import languagemodels as lm
 
 from flask import Flask, request, redirect
@@ -22,9 +23,9 @@ def resume_get():
     <body>
     <main>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
-    <form method=post>
+    <form method=post enctype=multipart/form-data>
       <label>Your Name<input name=name autocomplete=name /></label>
-      <label>Resume<textarea name=resume></textarea></label>
+      <label>Resume<input type=file name=resume></input></label>
       <input type=submit />
       {resumes}
     </form>
@@ -36,12 +37,19 @@ def resume_get():
 @app.route("/resume", methods=['POST'])
 def resume_post():
     name = request.form['name']
-    resume = request.form['resume']
 
-    resume = resume.replace("\r\n", "\n")
-    resume = re.sub(r"\n[ \t]+", "\n", resume)
-
-    resume = resume[:4000]
+    with zipfile.ZipFile(request.files['resume']) as docx:
+        document_xml = docx.read('word/document.xml').decode('utf-8')
+    
+        # Use regex to find all text inside <w:t>...</w:t> tags
+        text_elements = re.findall(r'<w:t.*?>(.*?)</w:t>', document_xml, re.DOTALL)
+        
+        # Join all text pieces and return as a single string
+        resume = ''.join(text_elements)
+        
+        resume = resume.replace("\r\n", "\n")
+        resume = re.sub(r"\n[ \t]+", "\n", resume)
+        resume = resume[:4000]
 
     start = time.perf_counter()
     score = lm.do(f"""
