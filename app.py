@@ -1,12 +1,28 @@
 import time
 import re
+import os
 
 import zipfile
-import languagemodels as lm
 
 from flask import Flask, request, redirect
 
 app = Flask(__name__)
+
+from cerebras.cloud.sdk import Cerebras
+
+def generate(prompt, choices):
+    client = Cerebras(api_key=os.environ.get("CEREBRAS_API_KEY"))
+
+    chat_completion = client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama3.1-8b",
+    )
+    chat_completion = chat_completion.choices[0].message.content
+
+    if chat_completion not in choices:
+        chat_completion = choices[-1]
+
+    return chat_completion
 
 resumes = {
     "Jack": {"score": "F", "resume": "Very smart"},
@@ -61,7 +77,7 @@ def resume_post():
         resume = resume[:4000]
 
     start = time.perf_counter()
-    score = lm.do(
+    score = generate(
         f"""
 Respond with only a single letter grade for the following CV for a cybersecurity candidate.
 
