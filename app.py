@@ -45,16 +45,18 @@ def resume_post():
     if not name.strip():
         return redirect("/apply")
 
+    # Quick hack to extract text from docx
     with zipfile.ZipFile(request.files["resume"]) as docx:
         document_xml = docx.read("word/document.xml").decode("utf-8")
 
-        # Use regex to find all text inside <w:t>...</w:t> tags
-        text_elements = re.findall(r"<w:t.*?>(.*?)</w:t>", document_xml, re.DOTALL)
-
-        # Join all text pieces and return as a single string
-        resume = "".join(text_elements)
+        resume = document_xml
+        resume = re.sub(r"<w:p>", "\n\n", resume)
+        resume = re.sub(r"<w:br>", "\n", resume)
+        resume = re.sub(r"<w:cr>", "\n", resume)
+        resume = re.sub(r"<.*?>", "", resume)
 
         resume = resume.replace("\r\n", "\n")
+        resume = re.sub(r"\n\n+", "\n\n", resume)
         resume = re.sub(r"\n[ \t]+", "\n", resume)
         resume = resume[:4000]
 
