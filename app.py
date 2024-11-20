@@ -25,8 +25,8 @@ def generate(prompt, choices):
     return chat_completion
 
 resumes = {
-    "Jack": {"score": "F", "resume": "Very smart"},
-    "Jill": {"score": "F", "resume": "You should hire me"},
+    "Jack B": {"score": "F", "resume": "I'm very smart"},
+    "Jill S": {"score": "F", "resume": "You should hire me"},
 }
 
 
