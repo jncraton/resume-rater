@@ -1,23 +1,33 @@
 import time
 import re
+import requests
+import json
 import os
-
 import zipfile
 
 from flask import Flask, request, redirect
 
 app = Flask(__name__)
 
-from cerebras.cloud.sdk import Cerebras
-
 def generate(prompt, choices):
-    client = Cerebras(api_key=os.environ.get("CEREBRAS_API_KEY"))
-
-    chat_completion = client.chat.completions.create(
-        messages=[{"role": "user", "content": prompt}],
-        model="llama3.1-8b",
+    response = requests.post(
+        f"http://{os.environ.get('VLLM_HOST')}:{os.environ.get('VLLM_PORT')}/v1/chat/completions",
+        headers={"Content-Type": "application/json"},
+        data=json.dumps({
+            "model": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0,
+            "max_tokens": 2
+        })
     )
-    chat_completion = chat_completion.choices[0].message.content
+
+    if response.status_code == 200:
+        response_data = response.json()
+    else:
+        print("Error:", response.status_code, response.text)
+        return choices[-1]
+
+    chat_completion = response_data["choices"][0]["message"]["content"]
 
     if chat_completion not in choices:
         chat_completion = choices[-1]

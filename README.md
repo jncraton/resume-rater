@@ -5,8 +5,10 @@ An example LLM application vulnerable to prompt injection
 Running
 -------
 
+This app expects a local VLLM server to use for inference. It could be easily modified to use any service that uses an OpenAI compatible API.
+
 The app can be run as:
 
 ```sh
-CEREBRAS_API_KEY=key python3 app.py
+VLLM_HOST=vllm VLLM_PORT=8000 python3 app.py
 ```
