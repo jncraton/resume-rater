@@ -42,6 +42,9 @@ def resume_get():
 def resume_post():
     name = request.form["name"]
 
+    if not name.strip():
+        return redirect("/apply")
+
     with zipfile.ZipFile(request.files["resume"]) as docx:
         document_xml = docx.read("word/document.xml").decode("utf-8")
 
