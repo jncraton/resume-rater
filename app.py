@@ -16,21 +16,21 @@ resumes = {
 
 @app.route("/")
 def root():
-    return redirect("/resume")
+    return redirect("/apply")
 
 
-@app.route("/resume")
+@app.route("/apply")
 def resume_get():
     return f"""
     <html>
     <body>
     <main>
+    <p>Thank you for your interest in our open cybersecurity position. Please complete the form below to apply for a position.</p>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
     <form method=post enctype=multipart/form-data>
       <label>Your Name<input name=name autocomplete=name /></label>
       <label>Resume<input type=file name=resume></input></label>
-      <input type=submit />
-      {resumes}
+      <input type=submit value=Apply />
     </form>
     </main>
     </body>
@@ -38,7 +38,7 @@ def resume_get():
     """
 
 
-@app.route("/resume", methods=["POST"])
+@app.route("/apply", methods=["POST"])
 def resume_post():
     name = request.form["name"]
 
@@ -86,7 +86,7 @@ Here's the CV:
         "time": time.perf_counter() - start,
     }
 
-    return redirect("/resume")
+    return redirect("/apply")
 
 
 @app.route("/applicants")
