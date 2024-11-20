@@ -152,5 +152,10 @@ def applicants():
     </html>
     """
 
+@app.route("/clear-applicants")
+def clear_applicants():
+    global resumes
+    resumes = {}
+    return redirect("/applicants")
 
 app.run()
