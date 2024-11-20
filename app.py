@@ -94,7 +94,7 @@ def applicants():
     applicants = sorted(resumes.items(), key=lambda x: x[1]["score"])
 
     rows = [
-        f"<tr><td><details><summary>{n}</summary>{v['resume']}</details></td><td>{v['score']}</td></tr>"
+        f"<tr><td><details><summary>{n}</summary><pre>{v['resume']}</pre></details></td><td>{v['score']}</td></tr>"
         for n, v in applicants
     ]
     tbody = "\n".join(rows)
