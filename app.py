@@ -9,25 +9,32 @@ from flask import Flask, request, redirect
 
 app = Flask(__name__)
 
+if not os.environ.get('VLLM_HOST'):
+    import languagemodels as lm
+    lm.config.use_hf_model("jncraton/Llama-3.2-3B-Instruct-ct2-int8", "5da4ba8")
+    lm.config["max_tokens"] = 1
+
 def generate(prompt, choices):
-    response = requests.post(
-        f"http://{os.environ.get('VLLM_HOST')}:{os.environ.get('VLLM_PORT')}/v1/chat/completions",
-        headers={"Content-Type": "application/json"},
-        data=json.dumps({
-            "model": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0,
-            "max_tokens": 2
-        })
-    )
+    if os.environ.get('VLLM_HOST'):
+        response = requests.post(
+            f"http://{os.environ.get('VLLM_HOST')}:{os.environ.get('VLLM_PORT')}/v1/chat/completions",
+            headers={"Content-Type": "application/json"},
+            data=json.dumps({
+                "model": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0,
+                "max_tokens": 2
+            })
+        )
+        if response.status_code == 200:
+            response_data = response.json()
+        else:
+            print("Error:", response.status_code, response.text)
+            return choices[-1]
 
-    if response.status_code == 200:
-        response_data = response.json()
+        chat_completion = response_data["choices"][0]["message"]["content"]
     else:
-        print("Error:", response.status_code, response.text)
-        return choices[-1]
-
-    chat_completion = response_data["choices"][0]["message"]["content"]
+        chat_completion = lm.do(prompt)[0]
 
     if chat_completion not in choices:
         chat_completion = choices[-1]
