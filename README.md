@@ -16,7 +16,7 @@ Example
 
 Applicants upload resumes in `.docx` format using the root endpoint:
 
-![Upload screenshot](https://github.com/user-attachments/assets/23114a2e-586f-497f-8316-135e123a11b1)
+![Upload screenshot](https://github.com/user-attachments/assets/9def3ef6-973a-49fa-88a7-0ef6690679f5)
 
 These resumes are then automatically processed and rated by an LLM for a hiring manager.
 
