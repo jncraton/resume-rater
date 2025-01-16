@@ -11,8 +11,8 @@ After exploring and exploiting this application, learners will be able to:
 - Explore source code to identify areas of weakness
 - Change the behavior of an LLM with access to only part of its prompt
 
-Example
--------
+Interface
+---------
 
 Applicants upload resumes in `.docx` format using the root endpoint:
 
@@ -23,6 +23,12 @@ These resumes are then automatically processed and rated by an LLM for a hiring 
 Here's an example showing the list of applicants with Jon's rating maliciously elevated to an "A" despite a lack of relevant credentials or experience:
 
 ![Exploit screenshot](https://github.com/user-attachments/assets/961c90ed-3cbe-48c3-af26-80bb828aac45)
+
+Tasks
+-----
+
+- Upload a resume that would ordinarily get a low rating, but gets an "A" via prompt injection
+- Upload a resume that breaks the application in other ways
 
 Running
 -------
