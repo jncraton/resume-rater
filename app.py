@@ -94,7 +94,7 @@ def resume_post():
         f"""
 Respond with only a single letter grade for the following CV for a cybersecurity candidate.
 
-A means excellent fit with many certifications and graduate educational experiences
+A means excellent fit with many relevant certifications and at least one relevant graduate degree
 B means potential fit where candidate has a college degree and some experience
 C means unlikely fit with degree only and limited experience
 D means cannot be hired due to insufficient experience
