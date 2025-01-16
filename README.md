@@ -22,7 +22,7 @@ These resumes are then automatically processed and rated by an LLM for a hiring 
 
 Here's an example showing the list of applicants with Jon's rating maliciously elevated to an "A" despite a lack of relevant credentials or experience:
 
-![Exploit screenshot](https://github.com/user-attachments/assets/3742457e-fcc2-45aa-92ed-2f81b548dc04)
+![Exploit screenshot](https://github.com/user-attachments/assets/961c90ed-3cbe-48c3-af26-80bb828aac45)
 
 Running
 -------
