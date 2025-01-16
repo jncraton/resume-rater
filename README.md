@@ -1,6 +1,6 @@
 # Resume Rater
 
-An example LLM application vulnerable to prompt injection
+An example LLM application vulnerable to [prompt injection](https://en.wikipedia.org/wiki/Prompt_injection)
 
 Running
 -------
