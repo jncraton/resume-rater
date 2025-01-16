@@ -14,6 +14,12 @@ After exploring and exploiting this application, learners will be able to:
 Example
 -------
 
+Applicants upload resumes in `.docx` format using the root endpoint:
+
+![Upload screenshot](https://github.com/user-attachments/assets/23114a2e-586f-497f-8316-135e123a11b1)
+
+These resumes are then automatically processed and rated by an LLM for a hiring manager.
+
 Here's an example showing the list of applicants with Jon's rating maliciously elevated to an "A" despite a lack of relevant credentials or experience:
 
 ![Exploit screenshot](https://github.com/user-attachments/assets/42e4afdb-9cab-4a75-aee7-aa72bc9b214d)
