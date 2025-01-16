@@ -2,7 +2,7 @@
 
 An example LLM application vulnerable to [prompt injection](https://en.wikipedia.org/wiki/Prompt_injection)
 
-![Exploit screenshot](https://github.com/user-attachments/assets/c21d74a1-e2f0-48dd-ad2a-b6ebb95be75a)
+![Exploit screenshot](https://github.com/user-attachments/assets/42e4afdb-9cab-4a75-aee7-aa72bc9b214d)
 
 Learning Objectives
 -------------------
