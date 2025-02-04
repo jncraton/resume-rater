@@ -9,8 +9,6 @@ After exploring and exploiting this application, learners will be able to:
 
 - Analyze an LLM powered web application to identify potential security vulnerabilities
 - Describe prompt injection vulnerabilities
-- Explore source code to identify areas of weakness
-- Change the behavior of an LLM with access to only part of its prompt
 
 Interface
 ---------
