@@ -40,11 +40,3 @@ By default this app will use the [languagemodels](https://github.com/jncraton/la
 ```sh
 python3 app.py
 ```
-
-This app can use a local [VLLM](https://github.com/vllm-project/vllm) server to use for inference. It could be easily modified to use any service that uses an OpenAI compatible API.
-
-The app can be run to use VLLM as:
-
-```sh
-VLLM_HOST=vllm VLLM_PORT=8000 python3 app.py
-```
