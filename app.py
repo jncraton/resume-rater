@@ -9,22 +9,28 @@ from flask import Flask, request, redirect
 
 app = Flask(__name__)
 
-if not os.environ.get('VLLM_HOST'):
+if not os.environ.get("VLLM_HOST"):
     import languagemodels as lm
+
     lm.config.use_hf_model("jncraton/Llama-3.2-3B-Instruct-ct2-int8", "5da4ba8")
     lm.config["max_tokens"] = 1
 
+
 def generate(prompt, choices):
-    if os.environ.get('VLLM_HOST'):
+    if os.environ.get("VLLM_HOST"):
+        host = os.environ.get("VLLM_HOST")
+        port = os.environ.get("VLLM_PORT")
         response = requests.post(
-            f"http://{os.environ.get('VLLM_HOST')}:{os.environ.get('VLLM_PORT')}/v1/chat/completions",
+            f"http://{host}:{port}/v1/chat/completions",
             headers={"Content-Type": "application/json"},
-            data=json.dumps({
-                "model": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0,
-                "max_tokens": 2
-            })
+            data=json.dumps(
+                {
+                    "model": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0,
+                    "max_tokens": 2,
+                }
+            ),
         )
         if response.status_code == 200:
             response_data = response.json()
@@ -41,6 +47,7 @@ def generate(prompt, choices):
 
     return chat_completion
 
+
 resumes = {
     "Jack B": {"score": "F", "resume": "I'm very smart"},
     "Jill S": {"score": "F", "resume": "You should hire me"},
@@ -54,15 +61,17 @@ def root():
 
 @app.route("/apply")
 def resume_get():
-    return f"""
+    return """
     <html>
     <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
     </head>
     <body>
     <main>
     <h1>Apply</h1>
-    <p>Thank you for your interest in our open cybersecurity position. Please complete the form below to apply for a position.</p>
+    <p>Thank you for your interest in our open cybersecurity position.</p>
+    <p>Please complete the form below to apply for a position.</p>
     <form method=post enctype=multipart/form-data>
       <label>Your Name<input name=name autocomplete=name /></label>
       <label>Resume<input type=file name=resume></input></label>
@@ -132,10 +141,11 @@ Here's the CV:
 
 @app.route("/thanks")
 def thanks_get():
-    return f"""
+    return """
     <html>
     <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
     </head>
     <body>
     <main>
@@ -152,7 +162,9 @@ def applicants():
     applicants = sorted(resumes.items(), key=lambda x: x[1]["score"])
 
     rows = [
-        f"<tr><td><details><summary>{n}</summary><pre>{v['resume']}</pre></details></td><td>{v['score']}</td></tr>"
+        f"<tr>"
+        f"<td><details><summary>{n}</summary><pre>{v['resume']}</pre></details></td>"
+        f"<td>{v['score']}</td></tr>"
         for n, v in applicants
     ]
     tbody = "\n".join(rows)
@@ -160,7 +172,8 @@ def applicants():
     return f"""
     <html>
     <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
     </head>
     <body>
     <main>
@@ -176,10 +189,12 @@ def applicants():
     </html>
     """
 
+
 @app.route("/clear-applicants")
 def clear_applicants():
     global resumes
     resumes = {}
     return redirect("/applicants")
+
 
 app.run()
