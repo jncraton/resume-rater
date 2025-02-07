@@ -27,6 +27,7 @@ def before_each(page: Page):
 
     proc.terminate()
     proc.wait()
+    time.sleep(0.2)
 
 
 def test_clear(page: Page):
