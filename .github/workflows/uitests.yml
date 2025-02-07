@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt playwright
       - run: python -m playwright install ${{ matrix.browser }}
       - run: pytest --durations=5 --browser ${{ matrix.browser }}
