@@ -75,23 +75,10 @@ def resume_post():
     if not name.strip():
         return redirect("/apply")
 
-    # Quick hack to extract text from docx
-    with zipfile.ZipFile(request.files["resume"]) as docx:
-        document_xml = docx.read("word/document.xml").decode("utf-8")
-
-        resume = document_xml
-        resume = re.sub(r"<w:p>", "\n\n", resume)
-        resume = re.sub(r"<w:br>", "\n", resume)
-        resume = re.sub(r"<w:cr>", "\n", resume)
-        resume = re.sub(r"<.*?>", "", resume)
-
-        resume = resume.replace("\r\n", "\n")
-        resume = re.sub(r"\n\n+", "\n\n", resume)
-        resume = re.sub(r"\n[ \t]+", "\n", resume)
-        resume = resume[:4000]
+    resume = get_docx_text(request.files["resume"])
 
     start = time.perf_counter()
-    score = generate(f"{prompt}\n\n{resume}", choices=list("ABCDF"))
+    score = generate(f"{prompt}\n\n{resume[:4000]}", choices=list("ABCDF"))
 
     resumes[name] = {
         "resume": resume,
@@ -167,6 +154,23 @@ def generate(prompt, choices):
         chat_completion = choices[-1]
 
     return chat_completion
+
+
+def get_docx_text(file):
+    """Extract plain text from docx file"""
+    with zipfile.ZipFile(file) as docx:
+        text = docx.read("word/document.xml").decode("utf-8")
+
+        text = re.sub(r"<w:p>", "\n\n", text)
+        text = re.sub(r"<w:br>", "\n", text)
+        text = re.sub(r"<w:cr>", "\n", text)
+        text = re.sub(r"<.*?>", "", text)
+
+        text = text.replace("\r\n", "\n")
+        text = re.sub(r"\n\n+", "\n\n", text)
+        text = re.sub(r"\n[ \t]+", "\n", text)
+
+    return text
 
 
 app.run()
