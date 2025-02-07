@@ -136,7 +136,7 @@ def applicants():
     rows = [
         f"<tr>"
         f"<td><details><summary>{n}</summary><pre>{v['resume']}</pre></details></td>"
-        f"<td>{v['score']}</td></tr>"
+        f"<td>Grade {v['score']}</td></tr>"
         for n, v in applicants
     ]
     tbody = "\n".join(rows)

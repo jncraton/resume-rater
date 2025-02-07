@@ -4,6 +4,7 @@ import pytest
 import subprocess
 import time
 import requests
+import re
 
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
@@ -53,3 +54,4 @@ def test_docx_upload(page: Page):
 
     page.goto("http://localhost:5000/applicants")
     expect(page.locator('body')).to_contain_text("- Network Engineer, Raytheon, (2015-present)")
+    expect(page.locator('body')).to_contain_text(re.compile(r"Grade [ABCD]"))
