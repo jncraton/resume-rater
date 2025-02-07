@@ -1,4 +1,3 @@
-import time
 import re
 import zipfile
 
@@ -77,14 +76,9 @@ def resume_post():
 
     resume = get_docx_text(request.files["resume"])
 
-    start = time.perf_counter()
     score = generate(f"{prompt}\n\n{resume[:4000]}", choices=list("ABCDF"))
 
-    resumes[name] = {
-        "resume": resume,
-        "score": score,
-        "time": time.perf_counter() - start,
-    }
+    resumes[name] = {"resume": resume, "score": score}
 
     return redirect("/thanks")
 
