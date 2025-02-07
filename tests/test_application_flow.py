@@ -1,11 +1,31 @@
 from playwright.sync_api import Page, expect
 import pytest
 
+import subprocess
+import time
+import requests
 
 @pytest.fixture(scope="function", autouse=True)
 def before_each(page: Page):
     """Load the page before each test"""
+
+    proc = subprocess.Popen(["python3", "app.py"])
+
+    for _ in range(50):
+        try:
+            response = requests.get("http://localhost:5000/thanks", timeout=1)
+            if response.status_code == 200:
+                break
+        except (requests.ConnectionError, requests.Timeout):
+            time.sleep(0.2)
+    else:
+        raise RuntimeError("Failed to start Flask server")
+
     page.goto("http://localhost:5000/clear-applicants")
+    yield
+
+    proc.terminate()
+    proc.wait()
 
 
 def test_clear(page: Page):
