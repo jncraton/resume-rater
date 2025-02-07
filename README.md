@@ -1,5 +1,6 @@
 # Resume Rater
 
+[![Lint](https://github.com/jncraton/resume-rater/actions/workflows/lint.yml/badge.svg)](https://github.com/jncraton/resume-rater/actions/workflows/lint.yml)
 [![UI Tests](https://github.com/jncraton/resume-rater/actions/workflows/uitests.yml/badge.svg)](https://github.com/jncraton/resume-rater/actions/workflows/uitests.yml)
 
 An LLM application vulnerable to [prompt injection](https://en.wikipedia.org/wiki/Prompt_injection)
