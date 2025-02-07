@@ -19,12 +19,13 @@ def generate(prompt, choices):
 
     return chat_completion
 
-
+# All application state lives in this in-memory dictionary
 resumes = {
     "Jack B": {"score": "F", "resume": "I'm very smart"},
     "Jill S": {"score": "F", "resume": "You should hire me"},
 }
 
+# Prompt to guide the LLM used for rating resumes
 prompt = """
 Respond with only a letter grade for the following CV for a cybersecurity candidate.
 
