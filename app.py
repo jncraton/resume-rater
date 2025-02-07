@@ -127,7 +127,24 @@ Here's the CV:
         "time": time.perf_counter() - start,
     }
 
-    return redirect("/apply")
+    return redirect("/thanks")
+
+
+@app.route("/thanks")
+def thanks_get():
+    return f"""
+    <html>
+    <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    </head>
+    <body>
+    <main>
+    <h1>Thank you</h1>
+    <p>Thank you for submitting an application.</p>
+    </main>
+    </body>
+    </html>
+    """
 
 
 @app.route("/applicants")
