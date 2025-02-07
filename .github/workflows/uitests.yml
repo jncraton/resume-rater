@@ -1,4 +1,4 @@
-name: Automated HTTP server testing
+name: UI Tests
 on:
   push:
     branches: ['main', 'dev']
