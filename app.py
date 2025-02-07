@@ -57,8 +57,8 @@ def resume_get():
     <p>Thank you for your interest in our open cybersecurity position.</p>
     <p>Please complete the form below to apply for a position.</p>
     <form method=post enctype=multipart/form-data>
-      <label>Your Name<input name=name autocomplete=name /></label>
-      <label>Resume<input type=file name=resume></input></label>
+      <label>Your Name<input name=name autocomplete=name required /></label>
+      <label>Resume<input type=file name=resume required ></input></label>
       <input type=submit value=Apply />
     </form>
     </main>
@@ -69,16 +69,11 @@ def resume_get():
 
 @app.route("/apply", methods=["POST"])
 def resume_post():
-    name = request.form["name"]
-
-    if not name.strip():
-        return redirect("/apply")
-
     resume = get_docx_text(request.files["resume"])
 
     score = generate(f"{prompt}\n\n{resume[:4000]}", choices=list("ABCDF"))
 
-    resumes[name] = {"resume": resume, "score": score}
+    resumes[request.form["name"]] = {"resume": resume, "score": score}
 
     return redirect("/thanks")
 
