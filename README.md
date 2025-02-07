@@ -1,5 +1,7 @@
 # Resume Rater
 
+[![UI Tests](https://github.com/jncraton/resume-rater/actions/workflows/uitests.yml/badge.svg)](https://github.com/jncraton/resume-rater/actions/workflows/uitests.yml)
+
 An LLM application vulnerable to [prompt injection](https://en.wikipedia.org/wiki/Prompt_injection)
 
 Learning Objectives
