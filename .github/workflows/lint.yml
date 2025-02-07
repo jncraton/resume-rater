@@ -10,5 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install -r requirements.txt flake8 black
-      - run: flake8 app.py
-      - run: black --check app.py
+      - run: make lint
