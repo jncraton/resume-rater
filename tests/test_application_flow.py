@@ -25,10 +25,10 @@ def test_docx_upload(page: Page):
     page.set_input_files('input[type="file"]', 'example.docx')
     
     # Submit the form
-    page.click('input[type="submit"]')
+    page.click('input[type="submit"]', timeout=180000)
     
     # Check if the page redirects to a success page or shows a success message
-    expect(page).to_have_url("http://localhost:5000/thanks", timeout=180000)
+    expect(page).to_have_url("http://localhost:5000/thanks")
     expect(page.locator('body')).to_contain_text("Thank you")
 
     page.goto("http://localhost:5000/applicants")
