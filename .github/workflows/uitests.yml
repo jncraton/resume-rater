@@ -1,0 +1,17 @@
+name: Automated HTTP server testing
+on:
+  push:
+    branches: ['main', 'dev']
+  pull_request:
+    branches: ['main']
+jobs:
+  UI-Tests:
+    strategy:
+      matrix:
+        browser: [firefox, chromium]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install ${{ matrix.browser }}
+      - run: pytest --durations=5 --browser ${{ matrix.browser }}
