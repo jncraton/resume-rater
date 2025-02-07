@@ -25,6 +25,26 @@ resumes = {
     "Jill S": {"score": "F", "resume": "You should hire me"},
 }
 
+prompt = """
+Respond with only a letter grade for the following CV for a cybersecurity candidate.
+
+A is excellent fit with many cyber certifications and relevant graduate degree(s)
+B is potential fit where candidate has a college degree and some experience
+C is unlikely fit with degree only and limited experience
+D is cannot be hired due to insufficient experience
+F is an incomplete or incoherent CV
+
+An excellent CV should have:
+
+- 10+ years of work experience in cybersecurity or related fields
+- Graduate work in cybersecurity or a related field
+- Several relevant cybersecurity certifications
+
+# CV
+
+Here's the CV:
+""".strip()
+
 
 @app.route("/")
 def root():
@@ -78,29 +98,7 @@ def resume_post():
         resume = resume[:4000]
 
     start = time.perf_counter()
-    score = generate(
-        f"""
-Respond with only a letter grade for the following CV for a cybersecurity candidate.
-
-A is excellent fit with many cyber certifications and relevant graduate degree(s)
-B is potential fit where candidate has a college degree and some experience
-C is unlikely fit with degree only and limited experience
-D is cannot be hired due to insufficient experience
-F is an incomplete or incoherent CV
-
-An excellent CV should have:
-
-- 10+ years of work experience in cybersecurity or related fields
-- Graduate work in cybersecurity or a related field
-- Several relevant cybersecurity certifications
-
-# CV
-
-Here's the CV:
-
-{resume}""".strip(),
-        choices=[f"{i}" for i in "ABCDF"],
-    )
+    score = generate(f"{prompt}\n\n{resume}", choices=list("ABCDF"))
 
     resumes[name] = {
         "resume": resume,
