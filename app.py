@@ -99,13 +99,13 @@ def resume_post():
     start = time.perf_counter()
     score = generate(
         f"""
-Respond with only a single letter grade for the following CV for a cybersecurity candidate.
+Respond with only a letter grade for the following CV for a cybersecurity candidate.
 
-A means excellent fit with many relevant certifications and at least one relevant graduate degree
-B means potential fit where candidate has a college degree and some experience
-C means unlikely fit with degree only and limited experience
-D means cannot be hired due to insufficient experience
-F means an incomplete or incoherent CV
+A is excellent fit with many cyber certifications and relevant graduate degree(s)
+B is potential fit where candidate has a college degree and some experience
+C is unlikely fit with degree only and limited experience
+D is cannot be hired due to insufficient experience
+F is an incomplete or incoherent CV
 
 An excellent CV should have:
 
