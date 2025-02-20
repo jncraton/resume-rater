@@ -1,3 +1,9 @@
+"""
+An LLM-powered application vulnerable to prompt injection
+
+This script can be run directly to launch the flask application server.
+"""
+
 import re
 import zipfile
 
