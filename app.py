@@ -18,8 +18,8 @@ lm.config["max_tokens"] = 1
 
 # All application state lives in this in-memory dictionary
 resumes = {
-    "Jack B": {"score": "F", "resume": "I'm very smart"},
-    "Jill S": {"score": "F", "resume": "You should hire me"},
+    "Alice": {"score": "F", "resume": "I'm very smart"},
+    "Bob": {"score": "F", "resume": "You should hire me"},
 }
 
 # Prompt to guide the LLM used for rating resumes
