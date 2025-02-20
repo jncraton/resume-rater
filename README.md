@@ -35,7 +35,13 @@ Tasks
 Running
 -------
 
-By default this app will use the [languagemodels](https://github.com/jncraton/languagemodels) Python package and Llama 3.2 3B for local inference. It can be run as:
+This app will use the [languagemodels](https://github.com/jncraton/languagemodels) Python package and Llama 3.2 3B for local inference. [Flask](https://pypi.org/project/Flask/) is used for the HTTP server. After cloning this project, run the following command to install the required Python package dependencies:
+
+```ssh
+pip3 install -r requirements.txt
+```
+
+The applcation server can be started as:
 
 ```sh
 python3 app.py
