@@ -12,10 +12,6 @@ import languagemodels as lm
 
 app = Flask(__name__)
 
-lm.config.use_hf_model("jncraton/Llama-3.2-3B-Instruct-ct2-int8", "5da4ba8")
-lm.config["max_tokens"] = 1
-
-
 # All application state lives in this in-memory dictionary
 resumes = {
     "Alice": {"score": "F", "resume": "I'm very smart"},
@@ -147,6 +143,10 @@ def clear_applicants():
     global resumes
     resumes = {}
     return redirect("/applicants")
+
+
+lm.config.use_hf_model("jncraton/Llama-3.2-3B-Instruct-ct2-int8", "5da4ba8")
+lm.config["max_tokens"] = 1
 
 
 def generate(prompt, choices):
