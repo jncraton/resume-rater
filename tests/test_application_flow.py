@@ -44,7 +44,7 @@ def test_docx_upload(page: Page):
     page.fill('input[name="name"]', 'Test Applicant')
     
     # Upload the file
-    page.set_input_files('input[type="file"]', 'example.docx')
+    page.set_input_files('input[type="file"]', 'charlie.docx')
     
     # Submit the form
     page.click('input[type="submit"]', timeout=180000)
