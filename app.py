@@ -128,7 +128,7 @@ def applicants():
     <h1>Applicants</h1>
     <table>
     <thead>
-    <tr><td>Name</td><td>AI ResumeRating™</td></tr>
+    <tr><td>Name</td><td style="width:240px">AI ResumeRating™</td></tr>
     </thead>
     <tbody>{tbody}</tbody>
     </table>
