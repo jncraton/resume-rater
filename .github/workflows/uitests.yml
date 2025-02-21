@@ -20,6 +20,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
       - run: pip install -r requirements.txt pytest playwright pytest-playwright "huggingface_hub[cli]"
-      - run: HF_HUB_DOWNLOAD_TIMEOUT=30 huggingface-cli download jncraton/Llama-3.2-3B-Instruct-ct2-int8 --revision 5da4ba8
+      - run: huggingface-cli download jncraton/Llama-3.2-3B-Instruct-ct2-int8 --revision 5da4ba8
       - run: python -m playwright install ${{ matrix.browser }}
       - run: pytest --durations=5 --browser ${{ matrix.browser }}
